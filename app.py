@@ -10,7 +10,8 @@ def get_gamepasses():
         return jsonify({"error": "Missing userId"}), 400
 
     try:
-        r = requests.get(f"https://games.roblox.com/v1/users/{user_id}/game-passes?limit=100")
+        url = f"https://catalog.roblox.com/v1/search/items?category=3&creatorTargetId={user_id}&limit=30&sortOrder=Asc"
+        r = requests.get(url)
         r.raise_for_status()
         data = r.json()
         return jsonify(data.get("data", []))
